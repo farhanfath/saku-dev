@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
 const root = new URL('../', import.meta.url);
@@ -46,18 +46,33 @@ export async function validateArtifacts(tag, metadata, assets, signature, versio
   if (updater.signature.trim() !== signature.trim()) throw new Error('latest.json signature does not match the uploaded .sig file');
 }
 
+export async function finalizeMetadata(tag, metadata, assets, signature, versions) {
+  const version = await validateVersions(tag, versions);
+  const installer = `Saku_${version}_x64-setup.exe`;
+  const asset = assets.find(({ name }) => name === installer);
+  const expectedUrl = `https://github.com/farhanfath/saku-dev/releases/download/${tag}/${installer}`;
+  const result = structuredClone(metadata);
+  for (const platform of Object.values(result.platforms ?? {})) {
+    // Tauri Action emits API asset URLs; public updates use the versioned download URL.
+    if (asset?.apiUrl && platform.url === asset.apiUrl) platform.url = expectedUrl;
+  }
+  await validateArtifacts(tag, result, assets, signature, versions);
+  return result;
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   if (process.argv[2] === 'versions') {
     await validateVersions(process.argv[3]);
-  } else if (process.argv[2] === 'artifacts') {
+  } else if (['artifacts', 'finalize'].includes(process.argv[2])) {
     const [tag, metadataPath, assetsPath, signaturePath] = process.argv.slice(3);
-    await validateArtifacts(
+    const result = await (process.argv[2] === 'finalize' ? finalizeMetadata : validateArtifacts)(
       tag,
       JSON.parse(await readFile(metadataPath, 'utf8')),
       JSON.parse(await readFile(assetsPath, 'utf8')),
       await readFile(signaturePath, 'utf8'),
     );
+    if (result) await writeFile(metadataPath, `${JSON.stringify(result, null, 2)}\n`);
   } else {
-    throw new Error('Usage: release-validation.mjs versions <tag> | artifacts <tag> <latest.json> <assets.json> <installer.sig>');
+    throw new Error('Usage: release-validation.mjs versions <tag> | artifacts|finalize <tag> <latest.json> <assets.json> <installer.sig>');
   }
 }

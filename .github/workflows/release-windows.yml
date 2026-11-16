@@ -82,4 +82,10 @@ jobs:
           if (-not $installer) { throw 'Draft NSIS installer is missing.' }
           gh release download $env:RELEASE_TAG --pattern "$($installer.name).sig" --dir $env:RUNNER_TEMP
           if ($LASTEXITCODE -ne 0) { throw 'Draft NSIS updater signature is missing.' }
+          node scripts/release-validation.mjs finalize $env:RELEASE_TAG "$env:RUNNER_TEMP\latest.json" $assetsPath "$env:RUNNER_TEMP\$($installer.name).sig"
+          if ($LASTEXITCODE -ne 0) { throw 'Draft manifest validation failed.' }
+          gh release upload $env:RELEASE_TAG "$env:RUNNER_TEMP\latest.json" --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Could not upload the validated public updater manifest.' }
+          gh release download $env:RELEASE_TAG --pattern latest.json --dir $env:RUNNER_TEMP --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Could not verify the uploaded updater manifest.' }
           node scripts/release-validation.mjs artifacts $env:RELEASE_TAG "$env:RUNNER_TEMP\latest.json" $assetsPath "$env:RUNNER_TEMP\$($installer.name).sig"
