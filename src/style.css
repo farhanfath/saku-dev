@@ -154,6 +154,7 @@ dialog p { font-size: 13px; line-height: 1.7; color: var(--muted); margin: 14px 
 @media (max-width: 760px) {
   .app-shell { display: block; }
   .sidebar { padding: 14px 20px; flex-direction: row; align-items: center; justify-content: space-between; }
+  .update-panel { position: absolute; z-index: 10; top: 58px; right: 8px; width: min(320px, calc(100vw - 16px)); max-height: calc(100vh - 72px); overflow: auto; margin: 0; box-shadow: 0 8px 28px #17384035; }
   .brand { font-size: 11px; gap: 9px; }
   .brand br { display: none; }
   .brand strong { margin-left: 4px; }
@@ -184,3 +185,12 @@ dialog p { font-size: 13px; line-height: 1.7; color: var(--muted); margin: 14px 
   .notice.warning { flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+.update-panel { margin: 22px 12px 14px; padding: 13px; border: 1px solid #d7e3e5; border-radius: 10px; background: #f7faf9; color: #29434a; }
+.update-panel > strong { display: block; font-size: 12px; }
+.update-panel p { margin: 7px 0; font-size: 11px; line-height: 1.45; }
+.update-message { color: #a53b32; }
+.update-notes { max-height: 120px; overflow: auto; padding: 7px 0; border-top: 1px solid #d7e3e5; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; line-height: 1.4; }
+.update-panel progress { width: 100%; height: 6px; accent-color: #087f70; }
+.update-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
+.update-actions .text-button { padding: 5px 0; font-size: 11px; }
+.update-actions .button.small { min-height: 29px; padding: 5px 8px; font-size: 11px; }

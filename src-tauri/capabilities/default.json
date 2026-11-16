@@ -3,5 +3,5 @@
   "identifier": "default",
   "description": "Local window events and file selection only",
   "windows": ["main"],
-  "permissions": ["core:default", "core:window:allow-close", "core:window:allow-destroy", "dialog:allow-open", "dialog:allow-save"]
+  "permissions": ["core:default", "core:window:allow-close", "core:window:allow-destroy", "dialog:allow-open", "dialog:allow-save", "updater:default"]
 }

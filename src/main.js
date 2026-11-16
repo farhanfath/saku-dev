@@ -4,9 +4,13 @@ import { invoke, isTauri } from '@tauri-apps/api/core';
 import { open } from '@tauri-apps/plugin-dialog';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { listen } from '@tauri-apps/api/event';
+import { getVersion } from '@tauri-apps/api/app';
+import { check as checkUpdate } from '@tauri-apps/plugin-updater';
 import { splitName, sizeLabel, summarize } from './model.js';
 import { confirmAction } from './dialog.js';
 import { createMarkdown } from './markdown.js';
+import { createUpdateController } from './update-controller.js';
+import { isSafeUpdate } from './update-policy.js';
 
 const $ = (id) => document.getElementById(id);
 const native = isTauri();
@@ -19,6 +23,7 @@ let timer;
 let revision = 0;
 let allowClose = false;
 let activeTool = 'batch';
+let updatesLocked = false;
 const markdown = createMarkdown();
 
 function showTool(tool) {
@@ -54,20 +59,20 @@ function updateUI() {
   $('file-count').textContent = rows.length;
   $('empty-state').hidden = rows.length > 0;
   $('file-table').hidden = !rows.length;
-  $('add-files').disabled = busy || !native || status.recovery;
-  $('choose-files').disabled = busy || !native || status.recovery;
-  $('clear-files').disabled = busy || !rows.length;
-  $('reset-draft').disabled = busy || !changed;
-  $('protect-extension').disabled = busy;
-  $('apply-names').disabled = busy || !changed || !!issues || checking || validationFailed || status.recovery;
-  $('undo-batch').disabled = busy || !status.undoCount || status.recovery;
-  $('recover').disabled = busy;
+  $('add-files').disabled = busy || updatesLocked || !native || status.recovery;
+  $('choose-files').disabled = busy || updatesLocked || !native || status.recovery;
+  $('clear-files').disabled = busy || updatesLocked || !rows.length;
+  $('reset-draft').disabled = busy || updatesLocked || !changed;
+  $('protect-extension').disabled = busy || updatesLocked;
+  $('apply-names').disabled = busy || updatesLocked || !changed || !!issues || checking || validationFailed || status.recovery;
+  $('undo-batch').disabled = busy || updatesLocked || !status.undoCount || status.recovery;
+  $('recover').disabled = busy || updatesLocked;
   $('recovery-note').hidden = !status.recovery;
   $('summary-title').textContent = busy ? 'Memproses file…' : issues ? `${issues} file perlu diperiksa` : changed ? `${changed} nama siap diubah` : 'Belum ada perubahan';
   $('summary-description').textContent = busy ? 'Tunggu sampai operasi selesai.' : checking ? 'Memeriksa nama dan konflik…' : validationFailed ? 'Pemeriksaan gagal. Cek pesan di atas lalu coba edit lagi.' : issues ? 'Perbaiki nama yang ditandai sebelum Apply.' : changed ? 'Periksa nama baru, lalu terapkan saat sudah yakin.' : rows.length ? 'Edit kolom nama baru. File asli belum berubah.' : 'Tambahkan file untuk mulai mengedit nama.';
   $('summary-icon').classList.toggle('has-issues', !!issues || validationFailed);
   $('list-hint').textContent = rows.length ? `${rows.length - changed} tetap · ${changed} berubah` : 'Perubahan masih berupa draft.';
-  for (const input of document.querySelectorAll('.name-input, .remove-file')) input.disabled = busy;
+  for (const input of document.querySelectorAll('.name-input, .remove-file')) input.disabled = busy || updatesLocked;
 }
 
 function paintRow(row) {
@@ -206,13 +211,82 @@ async function refreshStatus() {
   updateUI();
 }
 
+const updater = createUpdateController({
+  async check() {
+    const update = await checkUpdate({ timeout: 15000 });
+    if (!update) return null;
+    if (!isSafeUpdate(update)) {
+      await update.close();
+      throw new Error('Metadata update tidak valid.');
+    }
+    return update;
+  },
+  onState: renderUpdateState,
+  canInstall() {
+    if (busy || checking || markdown.isBusy()) return 'Tunggu operasi file selesai sebelum memasang pembaruan.';
+    if (summarize(rows).changed || markdown.isDirty()) return 'Simpan dokumen Markdown dan selesaikan atau reset draft rename sebelum memasang pembaruan.';
+    return '';
+  },
+  setLocked(value) {
+    updatesLocked = value;
+    markdown.setUpdatesLocked(value);
+    updateUI();
+  },
+  install: update => update.install(),
+});
+
+function renderUpdateState(state) {
+  const panel = $('update-panel');
+  panel.hidden = !native;
+  $('update-status').textContent = ({
+    idle: 'Versi aplikasi',
+    checking: 'Memeriksa versi terbaru…',
+    'up-to-date': 'Aplikasi sudah versi terbaru.',
+    available: `Versi ${state.version} tersedia.`,
+    downloading: `Mengunduh versi ${state.version}…`,
+    ready: `Versi ${state.version} siap dipasang.`,
+    installing: `Memasang versi ${state.version}…`,
+    installed: 'Pembaruan dimulai. Aplikasi akan dibuka ulang.',
+    dismissed: 'Pengingat ditutup untuk sesi ini.',
+    error: state.message,
+  })[state.status] || 'Versi aplikasi';
+  const message = $('update-message');
+  message.textContent = state.message || '';
+  message.hidden = !state.message;
+  const notes = $('update-notes');
+  notes.textContent = state.notes ? state.notes.slice(0, 12000) : '';
+  notes.hidden = !state.notes;
+  const progress = $('update-progress');
+  progress.hidden = state.status !== 'downloading';
+  if (state.total > 0) {
+    progress.max = state.total;
+    progress.value = Math.min(state.received || 0, state.total);
+    progress.setAttribute('aria-label', `Unduhan ${Math.floor(progress.value / progress.max * 100)} persen`);
+  } else {
+    progress.removeAttribute('value');
+    progress.setAttribute('aria-label', 'Unduhan berjalan');
+  }
+  $('update-check').disabled = ['checking', 'downloading', 'installing', 'installed'].includes(state.status);
+  $('update-check').textContent = state.status === 'error' ? 'Coba lagi' : 'Cek pembaruan';
+  $('update-later').hidden = !['available', 'ready'].includes(state.status);
+  $('update-download').hidden = state.status !== 'available';
+  $('update-install').hidden = state.status !== 'ready';
+  $('update-download').disabled = state.status === 'downloading';
+  $('update-install').disabled = state.status === 'installing';
+}
+
+$('update-check').addEventListener('click', () => updater.check(true));
+$('update-download').addEventListener('click', () => updater.download());
+$('update-install').addEventListener('click', () => updater.install());
+$('update-later').addEventListener('click', () => updater.later());
+
 function setFiles(files) {
   rows = files.map(file => ({ ...file, newName: file.name, extension: $('protect-extension').checked ? splitName(file.name).extension : '', issue: null }));
   renderRows(); scheduleValidation();
 }
 
 async function importPaths(paths) {
-  if (busy || status.recovery || !paths.length) return;
+  if (busy || updatesLocked || status.recovery || !paths.length) return;
   busy = true; notify(''); updateUI();
   try {
     const files = await invoke('import_files', { paths });
@@ -225,7 +299,7 @@ async function importPaths(paths) {
 }
 
 async function chooseFiles() {
-  if (!native || busy || status.recovery) return;
+  if (!native || busy || updatesLocked || status.recovery) return;
   try {
     const paths = await open({ multiple: true, directory: false, title: 'Pilih file untuk Batch Rename' });
     if (paths) await importPaths(Array.isArray(paths) ? paths : [paths]);
@@ -239,16 +313,18 @@ $('protect-extension').addEventListener('change', () => {
   renderRows(); scheduleValidation();
 });
 $('clear-files').addEventListener('click', async () => {
+  if (busy || updatesLocked) return;
   if (summarize(rows).changed && !await confirmAction('Buang draft dan kosongkan daftar?', 'Nama file di perangkat belum berubah. Draft nama baru akan dibuang.', 'Kosongkan daftar')) return;
   try { await invoke('clear_files'); rows = []; renderRows(); scheduleValidation(); notify(''); }
   catch (error) { notify(String(error), 'error'); }
 });
 $('reset-draft').addEventListener('click', async () => {
+  if (busy || updatesLocked) return;
   if (!await confirmAction('Reset semua nama baru?', 'Semua edit di daftar ini akan kembali ke nama asli. File di perangkat tidak berubah.', 'Reset draft')) return;
   setFiles(rows); notify('Draft kembali ke nama asli.');
 });
 $('apply-names').addEventListener('click', async () => {
-  if ($('apply-names').disabled) return;
+  if ($('apply-names').disabled || updatesLocked) return;
   const count = summarize(rows).changed;
   busy = true; ++revision; clearTimeout(timer); updateUI();
   try { setFiles(await invoke('apply_names', { edits: edits() })); notify(`${count} file berhasil di-rename. Batch ini bisa dikembalikan lewat Undo.`, 'success'); }
@@ -257,7 +333,7 @@ $('apply-names').addEventListener('click', async () => {
 });
 
 async function undoBatch() {
-  if (busy) return;
+  if (busy || updatesLocked) return;
   const description = status.recovery ? 'Aplikasi akan mencari file batch ini dan mengembalikannya ke nama semula. File penghalang tidak akan ditimpa.' : 'Nama file dari batch terakhir akan dikembalikan. Draft yang sedang diedit akan dibuang.';
   if (!await confirmAction(status.recovery ? 'Pulihkan batch yang terputus?' : 'Kembalikan batch terakhir?', description, status.recovery ? 'Pulihkan batch' : 'Undo batch')) return;
   busy = true; ++revision; clearTimeout(timer); updateUI();
@@ -268,6 +344,7 @@ async function undoBatch() {
 $('undo-batch').addEventListener('click', undoBatch);
 $('recover').addEventListener('click', undoBatch);
 document.addEventListener('keydown', event => {
+  if (updatesLocked) { event.preventDefault(); return; }
   if ($('confirm-dialog').open) return;
   if (activeTool === 'markdown') { if (!event.defaultPrevented) markdown.keydown(event); return; }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'o') { event.preventDefault(); chooseFiles(); }
@@ -279,14 +356,16 @@ document.addEventListener('drop', event => event.preventDefault());
 if (native) {
   const window = getCurrentWindow();
   window.onDragDropEvent(event => {
-    $('drop-area').classList.toggle('dragging', activeTool === 'batch' && !busy && ['enter', 'over'].includes(event.payload.type));
+    $('drop-area').classList.toggle('dragging', activeTool === 'batch' && !busy && !updatesLocked && ['enter', 'over'].includes(event.payload.type));
     if (event.payload.type === 'drop') {
+      if (updatesLocked) return;
       if (activeTool === 'markdown') markdown.drop(event.payload.paths);
       else importPaths(event.payload.paths);
     }
   }).catch(error => notify(`Drag-and-drop belum tersedia: ${error}. Gunakan tombol Tambah file.`, 'error'));
   window.onCloseRequested(async event => {
     if (allowClose) return;
+    if (updatesLocked) return;
     if (busy || markdown.isBusy()) { event.preventDefault(); (activeTool === 'markdown' ? markdown.notify : notify)('Tunggu operasi file selesai sebelum menutup aplikasi.'); return; }
     if (summarize(rows).changed || markdown.isDirty()) {
       event.preventDefault();
@@ -295,6 +374,10 @@ if (native) {
     }
   }).catch(error => notify(`Peringatan saat menutup belum tersedia: ${error}`, 'error'));
   await refreshStatus();
+  getVersion().then(version => {
+    if (updater.state.status === 'idle') $('update-status').textContent = `Versi ${version}`;
+  }).catch(() => {});
+  updater.check();
   async function openPendingMarkdown() {
     const path = await invoke('take_pending_markdown');
     if (path) { showTool('markdown'); await markdown.openPath(path); }

@@ -11,6 +11,19 @@
       <aside class="sidebar" aria-label="Navigasi aplikasi">
         <div class="brand"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><strong>Saku</strong></div>
         <nav><a id="nav-batch" href="#rename" data-tool="batch" class="nav-item" aria-current="page"><i class="ph ph-text-aa" aria-hidden="true"></i>Batch Rename</a><a id="nav-markdown" href="#markdown" data-tool="markdown" class="nav-item"><i class="ph ph-markdown-logo" aria-hidden="true"></i>Markdown</a></nav>
+        <section id="update-panel" class="update-panel" aria-label="Pembaruan Saku" hidden>
+          <strong>Pembaruan Saku</strong>
+          <p id="update-status" role="status" aria-live="polite">Versi 0.3.0</p>
+          <p id="update-message" class="update-message" hidden></p>
+          <div id="update-notes" class="update-notes" hidden></div>
+          <progress id="update-progress" max="100" value="0" hidden aria-label="Progres unduhan"></progress>
+          <div class="update-actions">
+            <button id="update-check" class="text-button" type="button">Cek pembaruan</button>
+            <button id="update-later" class="button small secondary" type="button" hidden>Nanti</button>
+            <button id="update-download" class="button small primary" type="button" hidden>Unduh</button>
+            <button id="update-install" class="button small primary" type="button" hidden>Pasang dan buka ulang</button>
+          </div>
+        </section>
         <div class="sidebar-bottom"><i class="ph ph-hard-drives" aria-hidden="true"></i><span>Ruang kerja lokal<small>File tetap di perangkat ini.</small></span></div>
       </aside>
 

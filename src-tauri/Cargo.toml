@@ -1,6 +1,6 @@
 [package]
 name = "saku"
-version = "0.2.1"
+version = "0.3.0"
 description = "Saku: personal desktop tools for local files"
 license = "MIT"
 repository = "https://github.com/farhanfath/saku-dev"
@@ -13,6 +13,7 @@ tauri-build = { version = "2", features = [] }
 tauri = { version = "2", features = [] }
 tauri-plugin-dialog = "2"
 tauri-plugin-single-instance = "2"
+tauri-plugin-updater = "2"
 base64 = "0.23"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
