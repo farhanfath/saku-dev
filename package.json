@@ -1,6 +1,6 @@
 {
   "name": "saku",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "license": "MIT",
   "repository": {
@@ -28,6 +28,7 @@
     "@phosphor-icons/web": "^2.1.1",
     "@tauri-apps/api": "^2.0.0",
     "@tauri-apps/plugin-dialog": "^2.0.0",
+    "@tauri-apps/plugin-updater": "^2.14.1",
     "codemirror": "^6.0.2",
     "dompurify": "^3.4.17",
     "highlight.js": "^11.12.0",
