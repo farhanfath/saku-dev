@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main, 'integration/**']
   push:
-    branches: [main, 'integration/**', 'feature/**', 'ci/**']
+    branches: [main, 'integration/**', 'feat/**', 'ci/**']
 
 permissions:
   contents: read
@@ -24,6 +24,8 @@ jobs:
         run: npm ci
       - name: Test JavaScript
         run: npm test
+      - name: Test website release endpoint
+        run: node --test website/api/*.test.js
       - name: Build web assets
         run: npm run build
       - name: Check Rust formatting

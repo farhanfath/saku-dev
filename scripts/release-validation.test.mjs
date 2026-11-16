@@ -24,4 +24,8 @@ test('draft metadata must reference the uploaded NSIS installer and signature', 
   await validateArtifacts('v0.3.0', metadata, assets, 'signed-payload\n', versions);
   await assert.rejects(validateArtifacts('v0.3.0', metadata, assets.slice(1), 'signed-payload', versions), /must contain/);
   await assert.rejects(validateArtifacts('v0.3.0', metadata, assets, 'different', versions), /does not match/);
+  await assert.rejects(validateArtifacts('v0.3.0', {
+    ...metadata,
+    platforms: { 'windows-x86_64': { ...metadata.platforms['windows-x86_64'], url: `https://attacker.example/releases/download/v0.3.0/${installer}` } },
+  }, assets, 'signed-payload', versions), /does not point/);
 });

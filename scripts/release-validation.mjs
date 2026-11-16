@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises';
-import { basename } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const root = new URL('../', import.meta.url);
@@ -40,7 +39,8 @@ export async function validateArtifacts(tag, metadata, assets, signature, versio
   if (metadata.version !== version || !updater?.signature || !updater?.url) {
     throw new Error('latest.json is missing the matching version or Windows updater metadata');
   }
-  if (basename(new URL(updater.url).pathname) !== installer || !updater.url.includes(`/releases/download/${tag}/`)) {
+  const expectedUrl = `https://github.com/farhanfath/saku-dev/releases/download/${tag}/${installer}`;
+  if (updater.url !== expectedUrl) {
     throw new Error('latest.json does not point to this tag’s NSIS installer');
   }
   if (updater.signature.trim() !== signature.trim()) throw new Error('latest.json signature does not match the uploaded .sig file');
