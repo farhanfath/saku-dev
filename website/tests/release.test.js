@@ -1,6 +1,6 @@
 ﻿import test from "node:test";
 import assert from "node:assert/strict";
-import handler, { publicRelease } from "../api/release.js";
+import handler, { publicRelease } from "../api/release.mjs";
 
 const stable = {
   tag_name: "v0.3.0",

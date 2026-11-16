@@ -267,6 +267,7 @@ export function createMarkdown() {
     }
     suppress = false;
 
+    editor.dispatch({ effects: editability.reconfigure(EditorView.editable.of(!busy && !updatesLocked)) });
     setMode(target.mode || 'read');
     $('md-conflict').hidden = true;
     renderTabBar();

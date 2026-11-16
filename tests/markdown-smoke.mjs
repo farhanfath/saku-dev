@@ -123,6 +123,7 @@ try {
   // Switch to dokumen-kedua.md and edit it
   await page.locator('.md-tab').nth(1).click();
   await page.locator('button[data-mode="edit"]').click();
+  await expect(editor).toHaveAttribute('contenteditable', 'true');
   await editor.click(); await page.keyboard.press('Control+End'); await page.keyboard.type('\nDraft terakhir');
   await expect(page.locator('.md-tab.active .md-tab-dirty')).toBeVisible();
   await page.setViewportSize({ width: 760, height: 640 });
