@@ -2,7 +2,7 @@
 version: 1
 slug: "landing"
 primary_target: "website/index.html"
-related_targets: ["website/styles.css", "website/release.js", "website/api/release.js"]
+related_targets: ["website/styles.css", "website/release.js", "website/api/release.mjs"]
 ---
 
 # Saku public landing page
