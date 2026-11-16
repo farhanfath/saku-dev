@@ -72,6 +72,7 @@ try {
   }), fixture);
   await expect(page.locator('.name-input')).toHaveCount(1);
   await page.locator('.name-input').fill('draft-renamed');
+  await expect(page.locator('#apply-names')).toBeEnabled();
   await page.locator('#update-install').click();
   await expect(page.locator('#update-message')).toContainText('draft rename');
   assert.equal(await readFile(fixture, 'utf8'), 'Preserve this source.');
