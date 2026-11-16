@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, 'integration/**']
+  push:
+    branches: [main, 'integration/**', 'feat/**', 'ci/**']
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt --component clippy
+      - name: Install JavaScript dependencies
+        run: npm ci
+      - name: Test JavaScript
+        run: npm test
+      - name: Test website release endpoint
+        run: node --test website/tests/*.test.js
+      - name: Build web assets
+        run: npm run build
+      - name: Check Rust formatting
+        working-directory: src-tauri
+        run: cargo fmt --check
+      - name: Test Rust
+        working-directory: src-tauri
+        run: cargo test -- --test-threads=1
+      - name: Run Clippy
+        working-directory: src-tauri
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Check release validator
+        run: node --test scripts/release-validation.test.mjs

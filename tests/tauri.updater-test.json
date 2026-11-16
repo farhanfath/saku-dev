@@ -1,0 +1,25 @@
+{
+  "productName": "Saku Updater Test",
+  "mainBinaryName": "saku-updater-test",
+  "identifier": "local.desktop.tools.updater-test",
+  "bundle": {
+    "fileAssociations": [],
+    "windows": { "nsis": { "installMode": "currentUser" } }
+  },
+  "app": {
+    "windows": [{
+      "label": "main",
+      "title": "Saku updater verification",
+      "width": 1240,
+      "height": 820,
+      "additionalBrowserArgs": "--remote-debugging-port=19345"
+    }]
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": ["http://127.0.0.1:19346/latest.json"],
+      "dangerousInsecureTransportProtocol": true,
+      "windows": { "installMode": "quiet" }
+    }
+  }
+}

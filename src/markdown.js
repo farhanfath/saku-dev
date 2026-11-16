@@ -52,6 +52,7 @@ export function createMarkdown() {
   let tabs = [];
   let activeTabId = null;
   let busy = false;
+  let updatesLocked = false;
   let mode = 'read';
   let revision = 0;
   let renderTimer;
@@ -99,8 +100,14 @@ export function createMarkdown() {
 
   function setBusy(value) {
     busy = value;
-    editor.dispatch({ effects: editability.reconfigure(EditorView.editable.of(!value)) });
+    editor.dispatch({ effects: editability.reconfigure(EditorView.editable.of(!value && !updatesLocked)) });
     updateUI();
+  }
+
+  function setUpdatesLocked(value) {
+    updatesLocked = value;
+    $('markdown-tool').inert = value;
+    editor.dispatch({ effects: editability.reconfigure(EditorView.editable.of(!busy && !value)) });
   }
 
   function updateTabDirtyIndicators() {
@@ -260,6 +267,7 @@ export function createMarkdown() {
     }
     suppress = false;
 
+    editor.dispatch({ effects: editability.reconfigure(EditorView.editable.of(!busy && !updatesLocked)) });
     setMode(target.mode || 'read');
     $('md-conflict').hidden = true;
     renderTabBar();
@@ -277,7 +285,7 @@ export function createMarkdown() {
   }
 
   async function openPath(path, options = {}) {
-    if (busy || !path) return false;
+    if (busy || updatesLocked || !path) return false;
 
     const existing = findTabByPath(tabs, path);
     if (existing && !options.forceReload) {
@@ -342,7 +350,7 @@ export function createMarkdown() {
   }
 
   async function chooseFile() {
-    if (!native || busy) return;
+    if (!native || busy || updatesLocked) return;
     setBusy(true);
     let path;
     try {
@@ -361,7 +369,7 @@ export function createMarkdown() {
   }
 
   async function newDocument() {
-    if (busy) return;
+    if (busy || updatesLocked) return;
     setBusy(true);
     try {
       const tabId = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `tab-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -407,7 +415,7 @@ export function createMarkdown() {
   }
 
   async function closeTab(tabId) {
-    if (busy || !tabId) return;
+    if (busy || updatesLocked || !tabId) return;
     const tab = findTabById(tabs, tabId);
     if (!tab) return;
 
@@ -461,7 +469,7 @@ export function createMarkdown() {
 
   async function saveDocument(asCopy = false) {
     const current = activeTab();
-    if (busy || !current || !native) return;
+    if (busy || updatesLocked || !current || !native) return;
     setBusy(true);
     try {
       let token = null;
@@ -751,6 +759,7 @@ export function createMarkdown() {
   renderTabBar();
 
   function keydown(event) {
+    if (updatesLocked) { event.preventDefault(); return; }
     if (!(event.ctrlKey || event.metaKey)) return;
     const key = event.key.toLowerCase();
     if (key === 'w') {
@@ -778,6 +787,7 @@ export function createMarkdown() {
   return {
     isDirty: anyDirty,
     isBusy: () => busy,
+    setUpdatesLocked,
     openPath,
     chooseFile,
     newDocument,
@@ -786,6 +796,7 @@ export function createMarkdown() {
     saveDocument,
     notify,
     async drop(paths) {
+      if (updatesLocked) return;
       if (!paths || !paths.length) {
         notify('Tarik file Markdown untuk dibuka.', 'error');
         return;
