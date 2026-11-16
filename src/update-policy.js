@@ -7,6 +7,5 @@ export function isSafeUpdate(update) {
     && (update.body == null || (typeof update.body === 'string' && update.body.length <= 12000))
     && rawJson !== undefined && rawJson.length <= 65536
     && typeof artifact.signature === 'string' && !!artifact.signature.trim()
-    && url.origin === 'https://github.com'
-    && /^\/farhanfath\/saku-dev\/releases\/download\/[^/]+\/[^/]+$/.test(url.pathname);
+    && url.href === `https://github.com/farhanfath/saku-dev/releases/download/v${update.version}/Saku_${update.version}_x64-setup.exe`;
 }

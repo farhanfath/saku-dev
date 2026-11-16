@@ -93,12 +93,16 @@ test('release metadata must be stable, bounded, signed, and hosted by this repos
   const update = {
     version: '0.3.1', body: 'Perbaikan.',
     rawJson: { platforms: { 'windows-x86_64': {
-      url: 'https://github.com/farhanfath/saku-dev/releases/download/v0.3.1/Saku_0.3.1_x64-setup.nsis.zip',
+      url: 'https://github.com/farhanfath/saku-dev/releases/download/v0.3.1/Saku_0.3.1_x64-setup.exe',
       signature: 'signed-update',
     } } },
   };
   assert.equal(isSafeUpdate(update), true);
   assert.equal(isSafeUpdate({ ...update, version: '0.3.1-rc.1' }), false);
+  assert.equal(isSafeUpdate({ ...update, version: '0.3.2' }), false);
+  const wrongAsset = structuredClone(update);
+  wrongAsset.rawJson.platforms['windows-x86_64'].url = 'https://github.com/farhanfath/saku-dev/releases/download/v0.3.1/Saku_0.3.0_x64-setup.exe';
+  assert.equal(isSafeUpdate(wrongAsset), false);
   assert.equal(isSafeUpdate({ ...update, body: 'x'.repeat(12001) }), false);
   assert.equal(isSafeUpdate({ ...update, rawJson: { ...update.rawJson, platforms: { 'windows-x86_64': { url: 'https://evil.example/update', signature: 'signed' } } } }), false);
 });

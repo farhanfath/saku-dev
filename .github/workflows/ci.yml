@@ -25,7 +25,7 @@ jobs:
       - name: Test JavaScript
         run: npm test
       - name: Test website release endpoint
-        run: node --test website/api/*.test.js
+        run: node --test website/tests/*.test.js
       - name: Build web assets
         run: npm run build
       - name: Check Rust formatting

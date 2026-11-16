@@ -12,13 +12,14 @@
     <title>Saku — alat kecil untuk berkas sehari-hari</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="preload" href="/assets/fonts/Manrope.ttf" as="font" type="font/ttf" crossorigin>
     <script src="/release.js" type="module"></script>
   </head>
   <body>
     <a class="skip-link" href="#konten">Lewati ke konten</a>
     <header class="site-header">
       <a class="wordmark" href="#atas" aria-label="Saku, beranda">
-        <span class="brand-mark" aria-hidden="true">s</span>
+        <img class="brand-mark" src="/assets/favicon.svg" alt="" width="27" height="27">
         <span>saku</span>
       </a>
       <nav class="main-nav" aria-label="Navigasi utama">
@@ -72,7 +73,7 @@
 
           <article class="tool-row tool-rename">
             <div class="tool-copy">
-              <span class="tool-label"><span class="tool-glyph glyph-rename" aria-hidden="true"><i></i><i></i><i></i></span> File &amp; folder</span>
+              <span class="tool-label"><span class="tool-glyph glyph-rename" aria-hidden="true"><i></i><i></i><i></i></span> Berkas lokal</span>
               <h3>Ganti banyak nama.<br>Periksa satu per satu.</h3>
               <p>Edit nama tiap file dalam satu daftar, lihat nama asal dan hasilnya berdampingan, lalu terapkan setelah semuanya cocok.</p>
               <ul class="plain-list">
@@ -137,7 +138,7 @@
         <div class="faq-list">
           <details><summary>Saku tersedia untuk sistem operasi apa?</summary><p>Saat ini Saku dibuat untuk Windows x64. Versi untuk sistem operasi lain belum tersedia.</p></details>
           <details><summary>Apakah file saya diunggah ke internet?</summary><p>Operasi Batch Rename dan dokumen yang kamu buka berlangsung di komputer sendiri. Gambar Markdown dari tautan web tetap memerlukan internet.</p></details>
-          <details><summary>Bagaimana cara mendapat pembaruan?</summary><p>Unduh versi terbaru dari halaman rilis. Catatan di halaman ini dan rilis GitHub merujuk pada rilis stabil yang sama.</p></details>
+          <details><summary>Bagaimana cara mendapat pembaruan?</summary><p>Mulai versi 0.3.0, Saku memeriksa rilis baru saat dibuka. Kamu juga bisa memilih Cek pembaruan, mengunduh update, lalu memasangnya dari aplikasi setelah pekerjaan disimpan. Pengguna versi lama perlu sekali memasang versi terbaru dari halaman rilis. Pemeriksaan dan unduhan update memerlukan internet.</p></details>
           <details><summary>Apakah Saku gratis dan open source?</summary><p>Ya. Kode Saku tersedia di GitHub dengan lisensi MIT.</p></details>
         </div>
       </section>
@@ -145,7 +146,7 @@
 
     <footer class="site-footer">
       <div class="wrap footer-top">
-        <a class="wordmark footer-wordmark" href="#atas"><span class="brand-mark" aria-hidden="true">s</span><span>saku</span></a>
+        <a class="wordmark footer-wordmark" href="#atas"><img class="brand-mark" src="/assets/favicon.svg" alt="" width="27" height="27"><span>saku</span></a>
         <p>Alat kecil untuk pekerjaan sehari-hari.</p>
         <div class="footer-links"><a href="https://github.com/farhanfath/saku-dev" target="_blank" rel="noreferrer">Repositori <span aria-hidden="true">↗</span></a><a href="https://github.com/farhanfath/saku-dev/releases" target="_blank" rel="noreferrer">Rilis <span aria-hidden="true">↗</span></a><a href="https://github.com/farhanfath/saku-dev/blob/main/LICENSE" target="_blank" rel="noreferrer">Lisensi MIT <span aria-hidden="true">↗</span></a></div>
       </div>
