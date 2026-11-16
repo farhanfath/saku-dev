@@ -153,8 +153,8 @@ dialog p { font-size: 13px; line-height: 1.7; color: var(--muted); margin: 14px 
 }
 @media (max-width: 760px) {
   .app-shell { display: block; }
-  .sidebar { padding: 14px 20px; flex-direction: row; align-items: center; justify-content: space-between; }
-  .update-panel { position: absolute; z-index: 10; top: 58px; right: 8px; width: min(320px, calc(100vw - 16px)); max-height: calc(100vh - 72px); overflow: auto; margin: 0; box-shadow: 0 8px 28px #17384035; }
+  .sidebar { padding: 14px 20px; flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+  .sidebar .update-panel { position: static; flex-basis: 100%; order: 3; min-width: 0; max-height: 240px; overflow: auto; margin: 0; }
   .brand { font-size: 11px; gap: 9px; }
   .brand br { display: none; }
   .brand strong { margin-left: 4px; }

@@ -252,7 +252,7 @@ function renderUpdateState(state) {
   })[state.status] || 'Versi aplikasi';
   const message = $('update-message');
   message.textContent = state.message || '';
-  message.hidden = !state.message;
+  message.hidden = state.status === 'error' || !state.message;
   const notes = $('update-notes');
   notes.textContent = state.notes ? state.notes.slice(0, 12000) : '';
   notes.hidden = !state.notes;
