@@ -213,7 +213,7 @@ async function refreshStatus() {
 
 const updater = createUpdateController({
   async check() {
-    const update = await checkUpdate({ timeout: 15000 });
+    const update = await checkUpdate({ target: 'windows-x86_64', timeout: 15000 });
     if (!update) return null;
     if (!isSafeUpdate(update)) {
       await update.close();
