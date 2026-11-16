@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f8f7">
+    <meta name="description" content="Saku adalah aplikasi Windows untuk merapikan nama file dan membaca, mengedit, serta melihat diagram Markdown. Gratis dan open source.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Saku — alat kecil untuk berkas sehari-hari">
+    <meta property="og:description" content="Rapikan nama file dan kerjakan dokumen Markdown di satu aplikasi Windows.">
+    <meta property="og:image" content="/assets/batch-rename.png">
+    <title>Saku — alat kecil untuk berkas sehari-hari</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/release.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#konten">Lewati ke konten</a>
+    <header class="site-header">
+      <a class="wordmark" href="#atas" aria-label="Saku, beranda">
+        <span class="brand-mark" aria-hidden="true">s</span>
+        <span>saku</span>
+      </a>
+      <nav class="main-nav" aria-label="Navigasi utama">
+        <a href="#alat">Alat</a>
+        <a href="#cara-kerja">Cara kerja</a>
+        <a href="#faq">Pertanyaan</a>
+      </nav>
+      <a class="header-link" href="https://github.com/farhanfath/saku-dev" target="_blank" rel="noreferrer">
+        Lihat di GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main id="konten">
+      <section class="hero wrap" id="atas" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Berkas rapi.<br><span>Kerja lanjut.</span></h1>
+          <p class="hero-intro">Saku mengumpulkan alat kecil yang bikin urusan file sehari-hari lebih ringan. Mulai dari merapikan banyak nama file sampai membaca dan mengedit Markdown.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" id="download-button" href="https://github.com/farhanfath/saku-dev/releases" target="_blank" rel="noreferrer">
+              <span class="download-label">Lihat rilis Windows</span>
+              <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M10 2.75v9m0 0 3.4-3.4M10 11.75 6.6 8.35M3.5 13.25v2.5c0 .55.45 1 1 1h11c.55 0 1-.45 1-1v-2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="release-status" id="release-status" aria-live="polite">Memeriksa rilis…</span>
+          </div>
+          <div class="hero-facts" aria-label="Informasi aplikasi">
+            <span><i aria-hidden="true"></i> Windows x64</span>
+            <span><i aria-hidden="true"></i> Gratis &amp; open source</span>
+            <span><i aria-hidden="true"></i> Berjalan di komputer sendiri</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Tampilan aplikasi Saku">
+          <div class="visual-note"><span class="note-dot"></span> Workspace Saku</div>
+          <figure class="screen screen-primary">
+            <img src="/assets/batch-rename.png" alt="Tampilan Batch Rename di Saku dengan nama file asli, nama baru, dan status perubahan" width="1240" height="820" fetchpriority="high">
+            <figcaption><span class="screen-index">A</span> Batch Rename</figcaption>
+          </figure>
+          <figure class="screen screen-secondary">
+            <img src="/assets/markdown.png" alt="Tampilan editor Markdown Saku dengan tab dokumen dan pratinjau" width="1240" height="820" loading="lazy">
+            <figcaption><span class="screen-index">B</span> Markdown</figcaption>
+          </figure>
+          <div class="visual-caption">Dua alat yang sudah siap dipakai.</div>
+        </div>
+      </section>
+
+      <section class="tools-section" id="alat" aria-labelledby="tools-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="tools-title">Hal kecil, selesai lebih cepat.</h2>
+            <p>Fokus pada pekerjaan yang sering muncul. Saku menampilkan perubahan dengan jelas sebelum kamu menerapkannya.</p>
+          </div>
+
+          <article class="tool-row tool-rename">
+            <div class="tool-copy">
+              <span class="tool-label"><span class="tool-glyph glyph-rename" aria-hidden="true"><i></i><i></i><i></i></span> File &amp; folder</span>
+              <h3>Ganti banyak nama.<br>Periksa satu per satu.</h3>
+              <p>Edit nama tiap file dalam satu daftar, lihat nama asal dan hasilnya berdampingan, lalu terapkan setelah semuanya cocok.</p>
+              <ul class="plain-list">
+                <li>Edit nama secara individual</li>
+                <li>Deteksi konflik sebelum diterapkan</li>
+                <li>Urungkan batch terakhir</li>
+              </ul>
+            </div>
+            <figure class="feature-image image-rename">
+              <img src="/assets/batch-rename.png" alt="Baris file dengan nama awal dan nama baru yang bisa dibandingkan" width="1240" height="820" loading="lazy">
+              <figcaption>Nama asli dan perubahan tetap terlihat bersama.</figcaption>
+            </figure>
+          </article>
+
+          <article class="tool-row tool-markdown">
+            <figure class="feature-image image-markdown">
+              <img src="/assets/markdown.png" alt="Dokumen Markdown terbuka dalam tampilan tab Saku" width="1240" height="820" loading="lazy">
+              <figcaption>Baca, edit, atau lihat keduanya dalam satu jendela.</figcaption>
+            </figure>
+            <div class="tool-copy">
+              <span class="tool-label"><span class="tool-glyph glyph-markdown" aria-hidden="true"><i></i><i></i></span> Dokumen Markdown</span>
+              <h3>Dokumen dan lampiran,<br>berdekatan.</h3>
+              <p>Buka beberapa dokumen dalam tab. Lihat hasil Markdown dan diagram, edit source, serta simpan dengan kontrol yang jelas.</p>
+              <ul class="plain-list">
+                <li>Mode baca, edit, dan split</li>
+                <li>Pratinjau gambar serta diagram Mermaid</li>
+                <li>Tab terpisah dan konfirmasi draft</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="install-section" id="cara-kerja" aria-labelledby="install-title">
+        <div class="wrap install-layout">
+          <div class="install-intro">
+            <h2 id="install-title">Dari unduh sampai selesai.</h2>
+            <p>Ambil installer Windows dari rilis stabil, pasang seperti aplikasi biasa, lalu buka alat yang kamu perlukan.</p>
+            <a class="text-link" href="https://github.com/farhanfath/saku-dev/releases" id="release-link">Lihat semua rilis <span aria-hidden="true">↗</span></a>
+          </div>
+          <ol class="steps">
+            <li><span class="step-number">1</span><div><h3>Unduh installer</h3><p>Versi stabil dan catatan rilis tersedia dari GitHub.</p></div></li>
+            <li><span class="step-number">2</span><div><h3>Pasang di Windows</h3><p>Saku dibuat untuk komputer Windows 64-bit.</p></div></li>
+            <li><span class="step-number">3</span><div><h3>Pilih alat, lanjutkan kerja</h3><p>File yang kamu olah tetap di perangkatmu.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="release-section" aria-labelledby="release-title">
+        <div class="wrap release-layout">
+          <div>
+            <h2 id="release-title">Yang terbaru di Saku.</h2>
+            <p class="release-summary" id="release-summary">Informasi rilis stabil akan muncul di sini.</p>
+          </div>
+          <div class="release-meta"><span id="release-version">Rilis stabil</span><time id="release-date"></time></div>
+          <a class="release-arrow" id="release-details" href="https://github.com/farhanfath/saku-dev/releases" aria-label="Buka catatan rilis di GitHub">Buka catatan rilis <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="faq-section wrap" id="faq" aria-labelledby="faq-title">
+        <div class="faq-heading"><h2 id="faq-title">Sebelum mulai.</h2><p>Beberapa hal yang mungkin ingin kamu tahu.</p></div>
+        <div class="faq-list">
+          <details><summary>Saku tersedia untuk sistem operasi apa?</summary><p>Saat ini Saku dibuat untuk Windows x64. Versi untuk sistem operasi lain belum tersedia.</p></details>
+          <details><summary>Apakah file saya diunggah ke internet?</summary><p>Operasi Batch Rename dan dokumen yang kamu buka berlangsung di komputer sendiri. Gambar Markdown dari tautan web tetap memerlukan internet.</p></details>
+          <details><summary>Bagaimana cara mendapat pembaruan?</summary><p>Unduh versi terbaru dari halaman rilis. Catatan di halaman ini dan rilis GitHub merujuk pada rilis stabil yang sama.</p></details>
+          <details><summary>Apakah Saku gratis dan open source?</summary><p>Ya. Kode Saku tersedia di GitHub dengan lisensi MIT.</p></details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-top">
+        <a class="wordmark footer-wordmark" href="#atas"><span class="brand-mark" aria-hidden="true">s</span><span>saku</span></a>
+        <p>Alat kecil untuk pekerjaan sehari-hari.</p>
+        <div class="footer-links"><a href="https://github.com/farhanfath/saku-dev" target="_blank" rel="noreferrer">Repositori <span aria-hidden="true">↗</span></a><a href="https://github.com/farhanfath/saku-dev/releases" target="_blank" rel="noreferrer">Rilis <span aria-hidden="true">↗</span></a><a href="https://github.com/farhanfath/saku-dev/blob/main/LICENSE" target="_blank" rel="noreferrer">Lisensi MIT <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="wrap footer-bottom"><span>© 2026 Saku</span><span>Dibuat untuk Windows.</span></div>
+    </footer>
+  </body>
+</html>
