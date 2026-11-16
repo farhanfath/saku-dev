@@ -1,0 +1,14 @@
+{
+  "identifier": "local.desktop.tools.smoke",
+  "app": {
+    "windows": [{
+      "label": "main",
+      "title": "Saku · Smoke test",
+      "width": 1240,
+      "height": 820,
+      "minWidth": 760,
+      "minHeight": 580,
+      "additionalBrowserArgs": "--remote-debugging-port=19344"
+    }]
+  }
+}

@@ -1,0 +1,25 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/schemas/
+.impeccable/review/
+.impeccable/tmp/
+.impeccable/questions/
+.superpowers/
+.vercel/
+test-results/
+
+# Local configuration and signing credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Local logs and OS metadata
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini

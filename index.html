@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#183f48" />
+    <title>Saku</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navigasi aplikasi">
+        <div class="brand"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><strong>Saku</strong></div>
+        <nav><a id="nav-batch" href="#rename" data-tool="batch" class="nav-item" aria-current="page"><i class="ph ph-text-aa" aria-hidden="true"></i>Batch Rename</a><a id="nav-markdown" href="#markdown" data-tool="markdown" class="nav-item"><i class="ph ph-markdown-logo" aria-hidden="true"></i>Markdown</a></nav>
+        <div class="sidebar-bottom"><i class="ph ph-hard-drives" aria-hidden="true"></i><span>Ruang kerja lokal<small>File tetap di perangkat ini.</small></span></div>
+      </aside>
+
+      <main id="main">
+        <section id="rename-tool" class="tool-pane">
+        <header class="page-header">
+          <div><h1>Batch Rename<span class="heading-dot" aria-hidden="true">.</span></h1><p>Nama baru, file yang sama. Rapikan satu per satu.</p></div>
+          <button id="add-files" class="button primary"><i class="ph ph-plus" aria-hidden="true"></i>Tambah file<span class="shortcut" aria-hidden="true">Ctrl O</span></button>
+        </header>
+
+        <div id="browser-note" class="notice" hidden><i class="ph ph-info" aria-hidden="true"></i><span>Ini pratinjau tampilan. Jalankan aplikasi desktop untuk memilih dan rename file.</span></div>
+        <div id="message" class="notice" role="status" aria-live="polite" hidden></div>
+        <div id="recovery-note" class="notice warning" hidden><i class="ph ph-warning-circle" aria-hidden="true"></i><span>Ada batch yang belum selesai. Pulihkan nama semula sebelum melanjutkan.</span><button id="recover" class="button small">Pulihkan batch</button></div>
+
+        <section class="workspace" aria-label="Editor nama file">
+          <div class="workspace-toolbar">
+            <div class="workspace-title"><i class="ph ph-files" aria-hidden="true"></i><h2>Daftar file</h2><span id="file-count" class="count">0</span></div>
+            <div class="toolbar-actions">
+              <label class="extension-toggle"><input id="protect-extension" type="checkbox" checked /><i class="ph ph-lock-simple" aria-hidden="true"></i>Lindungi ekstensi</label>
+              <span class="toolbar-divider" aria-hidden="true"></span>
+              <button id="clear-files" class="text-button" disabled>Kosongkan</button>
+            </div>
+          </div>
+
+          <div id="drop-area" class="file-area">
+            <div id="empty-state" class="empty-state">
+              <div class="empty-icon"><i class="ph ph-files" aria-hidden="true"></i><span class="mini-plus" aria-hidden="true"><i class="ph ph-plus"></i></span></div>
+              <h3>Mulai dari file yang mau dirapikan</h3>
+              <p>Tarik beberapa file ke sini, atau pilih dari folder.<br />Nama aslinya tetap terlihat saat lu mengedit.</p>
+              <button id="choose-files" class="button secondary"><i class="ph ph-folder-open" aria-hidden="true"></i>Pilih file</button>
+              <span class="empty-note">Pilih file biasa · tanpa mengubah isi file</span>
+            </div>
+            <table id="file-table" hidden>
+              <caption class="sr-only">Edit nama baru. Tekan Enter untuk berpindah ke file berikutnya. Perubahan diterapkan hanya setelah klik Apply.</caption>
+              <thead><tr><th class="number-col" scope="col">#</th><th scope="col">Nama asli</th><th scope="col">Nama baru</th><th class="status-col" scope="col">Status</th><th class="remove-col" scope="col"><span class="sr-only">Hapus dari daftar</span></th></tr></thead>
+              <tbody id="file-rows"></tbody>
+            </table>
+            <div class="drop-overlay" aria-hidden="true"><i class="ph ph-download-simple"></i>Lepas untuk menambahkan file</div>
+          </div>
+
+          <div class="workspace-bottom"><span><i class="ph ph-shield-check" aria-hidden="true"></i>File lain tidak akan ditimpa.</span><span id="list-hint">Perubahan masih berupa draft.</span></div>
+        </section>
+
+        <div class="under-workspace">
+          <div class="keyboard-guide"><i class="ph ph-keyboard" aria-hidden="true"></i><span><kbd>Enter</kbd> file berikutnya</span><span><kbd>Shift Enter</kbd> sebelumnya</span><span><kbd>Esc</kbd> reset satu nama</span></div>
+          <button id="reset-draft" class="text-button" disabled><i class="ph ph-arrow-counter-clockwise" aria-hidden="true"></i>Reset draft</button>
+        </div>
+
+        <footer class="action-bar">
+          <div class="draft-summary"><span id="summary-icon" class="summary-icon"><i class="ph ph-pencil-simple-line" aria-hidden="true"></i></span><div><strong id="summary-title">Belum ada perubahan</strong><span id="summary-description">Tambahkan file untuk mulai mengedit nama.</span></div></div>
+          <div class="footer-actions"><button id="undo-batch" class="button secondary" disabled><i class="ph ph-clock-counter-clockwise" aria-hidden="true"></i><span>Undo batch terakhir</span></button><button id="apply-names" class="button primary" disabled><span>Apply perubahan</span><i class="ph ph-arrow-right" aria-hidden="true"></i></button></div>
+        </footer>
+        </section>
+
+        <section id="markdown-tool" class="tool-pane" hidden aria-label="Markdown reader dan editor">
+          <header class="page-header md-header">
+            <div><h1>Markdown<span class="heading-dot" aria-hidden="true">.</span></h1><p>Baca dengan nyaman. Edit, lalu lihat hasilnya.</p></div>
+            <div class="md-file-actions"><button id="md-new" class="button secondary"><i class="ph ph-file-plus" aria-hidden="true"></i>Baru</button><button id="md-open" class="button secondary"><i class="ph ph-folder-open" aria-hidden="true"></i>Buka file</button><button id="md-save" class="button primary" disabled><i class="ph ph-floppy-disk" aria-hidden="true"></i>Simpan</button></div>
+          </header>
+          <div id="md-message" class="notice" role="status" aria-live="polite" hidden></div>
+          <div id="md-conflict" class="notice warning" hidden><span>File berubah di luar aplikasi. Edit lu tetap ada.</span><button id="md-reload" class="button small secondary">Muat ulang</button><button id="md-save-copy" class="button small secondary">Simpan salinan</button></div>
+          <section class="md-workspace" aria-label="Dokumen Markdown">
+            <div id="md-tab-bar" class="md-tab-bar" hidden>
+              <div id="md-tab-list" class="md-tab-list" role="tablist" aria-label="Tab Dokumen"></div>
+              <button id="md-tab-new" class="md-tab-new" type="button" title="Dokumen baru (Ctrl+N)" aria-label="Dokumen baru">+</button>
+            </div>
+            <div class="md-toolbar">
+              <div class="md-document-identity"><i class="ph ph-file-md" aria-hidden="true"></i><strong id="md-filename">Belum ada dokumen</strong><span id="md-dirty" class="md-dirty" hidden>Belum disimpan</span></div>
+              <div class="md-mode-switch" role="group" aria-label="Mode dokumen"><button type="button" data-mode="read" aria-pressed="true">Baca</button><button type="button" data-mode="edit" aria-pressed="false">Edit</button><button type="button" data-mode="split" aria-pressed="false">Split</button></div>
+            </div>
+            <div class="md-reading-tools"><button id="md-outline-toggle" class="md-tool-button" aria-pressed="true"><i class="ph ph-list" aria-hidden="true"></i>Outline</button><button id="md-search-toggle" class="md-tool-button" aria-expanded="false"><i class="ph ph-magnifying-glass" aria-hidden="true"></i>Cari</button><span class="md-tools-spacer"></span><label class="md-text-size">Ukuran teks<select id="md-font-size" aria-label="Ukuran teks dokumen"><option value="14">14 px</option><option value="16" selected>16 px</option><option value="18">18 px</option><option value="20">20 px</option></select></label><button id="md-save-as" class="md-tool-button">Simpan sebagai</button></div>
+            <div id="md-search-bar" class="md-search-bar" hidden><input id="md-search" type="search" aria-label="Cari teks dalam dokumen" placeholder="Cari dalam dokumen…" /><span id="md-search-count" aria-live="polite">0 hasil</span><button id="md-search-next" class="md-tool-button">Berikutnya</button><button id="md-search-close" class="icon-button" aria-label="Tutup pencarian"><i class="ph ph-x" aria-hidden="true"></i></button></div>
+            <div id="md-empty" class="empty-state md-empty"><div class="empty-icon"><i class="ph ph-book-open-text" aria-hidden="true"></i></div><h2>Dokumen lokal, ruang baca sendiri</h2><p>Buka file .md untuk membaca dan melihat diagram.<br />Atau mulai menulis dari halaman kosong.</p><div class="md-empty-actions"><button id="md-empty-open" class="button primary">Buka Markdown</button><button id="md-empty-new" class="button secondary">Dokumen baru</button></div><span class="empty-note">Bisa juga tarik satu file .md ke jendela ini.</span></div>
+            <div id="md-body" class="md-body" data-mode="read" hidden>
+              <aside id="md-outline" class="md-outline" aria-label="Daftar heading"><h2>Dalam dokumen</h2><nav id="md-outline-list" aria-label="Outline dokumen"></nav></aside>
+              <div id="md-editor-pane" class="md-editor-pane" hidden><div class="md-pane-label">Source Markdown</div><div id="md-editor"></div></div>
+              <div id="md-preview-pane" class="md-preview-pane"><div class="md-pane-label">Preview</div><article id="md-preview" class="md-preview" tabindex="0" aria-label="Isi dokumen"></article></div>
+            </div>
+            <footer class="md-statusbar"><span id="md-status">Buka file atau buat dokumen baru.</span><span id="md-file-path" title="Lokasi dokumen">Semua file tetap lokal</span></footer>
+          </section>
+          <div class="md-keyboard-hint"><span><kbd>Ctrl S</kbd> simpan</span><span><kbd>Ctrl Shift S</kbd> simpan sebagai</span><span><kbd>Ctrl F</kbd> cari</span><span>Preview mengikuti ketikan; file disimpan saat lu memilih Simpan.</span></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description"><form method="dialog"><h2 id="confirm-title"></h2><p id="confirm-description"></p><div class="dialog-actions"><button class="button secondary" value="cancel" autofocus>Batal</button><button id="confirm-accept" class="button primary" value="accept">Lanjutkan</button></div></form></dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

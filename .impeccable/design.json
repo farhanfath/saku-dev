@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-11T00:20:09.626Z",
+  "title": "Design System: Saku",
+  "extensions": {
+    "colorMeta": {
+      "teal": {
+        "role": "primary",
+        "displayName": "Teal",
+        "tonalRamp": [
+          "oklch(15% 0.0357 180.6)",
+          "oklch(26% 0.0618 180.6)",
+          "oklch(38% 0.0904 180.6)",
+          "oklch(50% 0.0952 180.6)",
+          "oklch(62% 0.0952 180.6)",
+          "oklch(74% 0.0952 180.6)",
+          "oklch(86% 0.0533 180.6)",
+          "oklch(95% 0.0190 180.6)"
+        ]
+      },
+      "teal-dark": {
+        "role": "primary",
+        "displayName": "Teal Dark",
+        "tonalRamp": [
+          "oklch(15% 0.0306 179.8)",
+          "oklch(26% 0.0530 179.8)",
+          "oklch(38% 0.0774 179.8)",
+          "oklch(50% 0.0815 179.8)",
+          "oklch(62% 0.0815 179.8)",
+          "oklch(74% 0.0815 179.8)",
+          "oklch(86% 0.0456 179.8)",
+          "oklch(95% 0.0163 179.8)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus",
+        "tonalRamp": [
+          "oklch(15% 0.0375 179.8)",
+          "oklch(26% 0.0650 179.8)",
+          "oklch(38% 0.0950 179.8)",
+          "oklch(50% 0.1000 179.8)",
+          "oklch(62% 0.1000 179.8)",
+          "oklch(74% 0.1000 179.8)",
+          "oklch(86% 0.0560 179.8)",
+          "oklch(95% 0.0200 179.8)"
+        ]
+      },
+      "petrol": {
+        "role": "secondary",
+        "displayName": "Petrol",
+        "tonalRamp": [
+          "oklch(15% 0.0173 215.2)",
+          "oklch(26% 0.0301 215.2)",
+          "oklch(38% 0.0439 215.2)",
+          "oklch(50% 0.0462 215.2)",
+          "oklch(62% 0.0462 215.2)",
+          "oklch(74% 0.0462 215.2)",
+          "oklch(86% 0.0259 215.2)",
+          "oklch(95% 0.0092 215.2)"
+        ]
+      },
+      "petrol-active": {
+        "role": "secondary",
+        "displayName": "Petrol Active",
+        "tonalRamp": [
+          "oklch(15% 0.0186 211.0)",
+          "oklch(26% 0.0322 211.0)",
+          "oklch(38% 0.0470 211.0)",
+          "oklch(50% 0.0495 211.0)",
+          "oklch(62% 0.0495 211.0)",
+          "oklch(74% 0.0495 211.0)",
+          "oklch(86% 0.0277 211.0)",
+          "oklch(95% 0.0099 211.0)"
+        ]
+      },
+      "rail-text": {
+        "role": "secondary",
+        "displayName": "Rail Text",
+        "tonalRamp": [
+          "oklch(15% 0.0036 197.0)",
+          "oklch(26% 0.0062 197.0)",
+          "oklch(38% 0.0090 197.0)",
+          "oklch(50% 0.0095 197.0)",
+          "oklch(62% 0.0095 197.0)",
+          "oklch(74% 0.0095 197.0)",
+          "oklch(86% 0.0053 197.0)",
+          "oklch(95% 0.0019 197.0)"
+        ]
+      },
+      "workspace": {
+        "role": "neutral",
+        "displayName": "Workspace",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.9)",
+          "oklch(26% 0.0000 89.9)",
+          "oklch(38% 0.0000 89.9)",
+          "oklch(50% 0.0000 89.9)",
+          "oklch(62% 0.0000 89.9)",
+          "oklch(74% 0.0000 89.9)",
+          "oklch(86% 0.0000 89.9)",
+          "oklch(95% 0.0000 89.9)"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "tonalRamp": [
+          "oklch(15% 0.0013 219.5)",
+          "oklch(26% 0.0023 219.5)",
+          "oklch(38% 0.0033 219.5)",
+          "oklch(50% 0.0035 219.5)",
+          "oklch(62% 0.0035 219.5)",
+          "oklch(74% 0.0035 219.5)",
+          "oklch(86% 0.0019 219.5)",
+          "oklch(95% 0.0007 219.5)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0107 217.6)",
+          "oklch(26% 0.0186 217.6)",
+          "oklch(38% 0.0272 217.6)",
+          "oklch(50% 0.0286 217.6)",
+          "oklch(62% 0.0286 217.6)",
+          "oklch(74% 0.0286 217.6)",
+          "oklch(86% 0.0160 217.6)",
+          "oklch(95% 0.0057 217.6)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0094 222.1)",
+          "oklch(26% 0.0163 222.1)",
+          "oklch(38% 0.0238 222.1)",
+          "oklch(50% 0.0251 222.1)",
+          "oklch(62% 0.0251 222.1)",
+          "oklch(74% 0.0251 222.1)",
+          "oklch(86% 0.0140 222.1)",
+          "oklch(95% 0.0050 222.1)"
+        ]
+      },
+      "secondary-text": {
+        "role": "neutral",
+        "displayName": "Secondary Text",
+        "tonalRamp": [
+          "oklch(15% 0.0113 221.1)",
+          "oklch(26% 0.0195 221.1)",
+          "oklch(38% 0.0285 221.1)",
+          "oklch(50% 0.0300 221.1)",
+          "oklch(62% 0.0300 221.1)",
+          "oklch(74% 0.0300 221.1)",
+          "oklch(86% 0.0168 221.1)",
+          "oklch(95% 0.0060 221.1)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15% 0.0039 219.6)",
+          "oklch(26% 0.0068 219.6)",
+          "oklch(38% 0.0100 219.6)",
+          "oklch(50% 0.0105 219.6)",
+          "oklch(62% 0.0105 219.6)",
+          "oklch(74% 0.0105 219.6)",
+          "oklch(86% 0.0059 219.6)",
+          "oklch(95% 0.0021 219.6)"
+        ]
+      },
+      "input-border": {
+        "role": "neutral",
+        "displayName": "Input Border",
+        "tonalRamp": [
+          "oklch(15% 0.0111 223.5)",
+          "oklch(26% 0.0193 223.5)",
+          "oklch(38% 0.0282 223.5)",
+          "oklch(50% 0.0297 223.5)",
+          "oklch(62% 0.0297 223.5)",
+          "oklch(74% 0.0297 223.5)",
+          "oklch(86% 0.0166 223.5)",
+          "oklch(95% 0.0059 223.5)"
+        ]
+      },
+      "table-header": {
+        "role": "neutral",
+        "displayName": "Table Header",
+        "tonalRamp": [
+          "oklch(15% 0.0009 228.8)",
+          "oklch(26% 0.0016 228.8)",
+          "oklch(38% 0.0024 228.8)",
+          "oklch(50% 0.0025 228.8)",
+          "oklch(62% 0.0025 228.8)",
+          "oklch(74% 0.0025 228.8)",
+          "oklch(86% 0.0014 228.8)",
+          "oklch(95% 0.0005 228.8)"
+        ]
+      },
+      "row-hover": {
+        "role": "neutral",
+        "displayName": "Row Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0008 197.1)",
+          "oklch(26% 0.0014 197.1)",
+          "oklch(38% 0.0020 197.1)",
+          "oklch(50% 0.0021 197.1)",
+          "oklch(62% 0.0021 197.1)",
+          "oklch(74% 0.0021 197.1)",
+          "oklch(86% 0.0012 197.1)",
+          "oklch(95% 0.0004 197.1)"
+        ]
+      },
+      "row-focus": {
+        "role": "neutral",
+        "displayName": "Row Focus",
+        "tonalRamp": [
+          "oklch(15% 0.0048 172.4)",
+          "oklch(26% 0.0083 172.4)",
+          "oklch(38% 0.0121 172.4)",
+          "oklch(50% 0.0127 172.4)",
+          "oklch(62% 0.0127 172.4)",
+          "oklch(74% 0.0127 172.4)",
+          "oklch(86% 0.0071 172.4)",
+          "oklch(95% 0.0025 172.4)"
+        ]
+      },
+      "changed-text": {
+        "role": "primary",
+        "displayName": "Changed Text",
+        "tonalRamp": [
+          "oklch(15% 0.0315 179.3)",
+          "oklch(26% 0.0546 179.3)",
+          "oklch(38% 0.0798 179.3)",
+          "oklch(50% 0.0840 179.3)",
+          "oklch(62% 0.0840 179.3)",
+          "oklch(74% 0.0840 179.3)",
+          "oklch(86% 0.0471 179.3)",
+          "oklch(95% 0.0168 179.3)"
+        ]
+      },
+      "status-changed": {
+        "role": "primary",
+        "displayName": "Status Changed",
+        "tonalRamp": [
+          "oklch(15% 0.0324 176.8)",
+          "oklch(26% 0.0562 176.8)",
+          "oklch(38% 0.0822 176.8)",
+          "oklch(50% 0.0865 176.8)",
+          "oklch(62% 0.0865 176.8)",
+          "oklch(74% 0.0865 176.8)",
+          "oklch(86% 0.0484 176.8)",
+          "oklch(95% 0.0173 176.8)"
+        ]
+      },
+      "error-text": {
+        "role": "secondary",
+        "displayName": "Error Text",
+        "tonalRamp": [
+          "oklch(15% 0.0520 17.7)",
+          "oklch(26% 0.0902 17.7)",
+          "oklch(38% 0.1318 17.7)",
+          "oklch(50% 0.1388 17.7)",
+          "oklch(62% 0.1388 17.7)",
+          "oklch(74% 0.1388 17.7)",
+          "oklch(86% 0.0777 17.7)",
+          "oklch(95% 0.0278 17.7)"
+        ]
+      },
+      "error-bg": {
+        "role": "secondary",
+        "displayName": "Error Bg",
+        "tonalRamp": [
+          "oklch(15% 0.0065 13.1)",
+          "oklch(26% 0.0113 13.1)",
+          "oklch(38% 0.0165 13.1)",
+          "oklch(50% 0.0174 13.1)",
+          "oklch(62% 0.0174 13.1)",
+          "oklch(74% 0.0174 13.1)",
+          "oklch(86% 0.0098 13.1)",
+          "oklch(95% 0.0035 13.1)"
+        ]
+      },
+      "error-border": {
+        "role": "secondary",
+        "displayName": "Error Border",
+        "tonalRamp": [
+          "oklch(15% 0.0435 14.8)",
+          "oklch(26% 0.0755 14.8)",
+          "oklch(38% 0.1103 14.8)",
+          "oklch(50% 0.1161 14.8)",
+          "oklch(62% 0.1161 14.8)",
+          "oklch(74% 0.1161 14.8)",
+          "oklch(86% 0.0650 14.8)",
+          "oklch(95% 0.0232 14.8)"
+        ]
+      },
+      "disabled-bg": {
+        "role": "neutral",
+        "displayName": "Disabled Bg",
+        "tonalRamp": [
+          "oklch(15% 0.0030 216.6)",
+          "oklch(26% 0.0052 216.6)",
+          "oklch(38% 0.0076 216.6)",
+          "oklch(50% 0.0080 216.6)",
+          "oklch(62% 0.0080 216.6)",
+          "oklch(74% 0.0080 216.6)",
+          "oklch(86% 0.0045 216.6)",
+          "oklch(95% 0.0016 216.6)"
+        ]
+      },
+      "disabled-text": {
+        "role": "neutral",
+        "displayName": "Disabled Text",
+        "tonalRamp": [
+          "oklch(15% 0.0100 220.0)",
+          "oklch(26% 0.0174 220.0)",
+          "oklch(38% 0.0254 220.0)",
+          "oklch(50% 0.0268 220.0)",
+          "oklch(62% 0.0268 220.0)",
+          "oklch(74% 0.0268 220.0)",
+          "oklch(86% 0.0150 220.0)",
+          "oklch(95% 0.0054 220.0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page title; Windows UI typography, without a separate display face."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Empty-state heading; confirmation uses its observed 19px variant."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Compact filenames, editable names, controls, and explanations."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Toolbar heading and current tool navigation."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Metadata, table labels, row state, and footer help."
+      }
+    },
+    "shadows": [
+      {
+        "name": "secondary-control-stroke",
+        "value": "inset 0 0 0 1px #cddadd",
+        "purpose": "Secondary button boundary."
+      },
+      {
+        "name": "input-focus-halo",
+        "value": "0 0 0 2px #168c7b24",
+        "purpose": "Focused name-field boundary."
+      },
+      {
+        "name": "confirmation",
+        "value": "0 20px 80px #17384035",
+        "purpose": "Modal confirmation only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-state",
+        "value": "background-color .16s ease-out, box-shadow .16s ease-out",
+        "purpose": "Button hover transitions; disabled by prefers-reduced-motion."
+      },
+      {
+        "name": "row-state",
+        "value": "background-color .15s ease-out",
+        "purpose": "Row hover/focus tint; disabled by prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "(min-width: 1450px)"
+      },
+      {
+        "name": "compact",
+        "value": "(max-width: 1050px)"
+      },
+      {
+        "name": "narrow",
+        "value": "(max-width: 760px)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "A deliberate enabled action, with a disabled state when unavailable.",
+      "html": "<button class=\"ds-primary\">Apply perubahan</button>",
+      "css": ".ds-primary{font-family:'Segoe UI', system-ui, sans-serif;font-size:12px;font-weight:600;min-height:40px;border:0;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:10px 15px;white-space:nowrap;cursor:pointer;transition:background-color .16s ease-out,box-shadow .16s ease-out;background:var(--teal);color:white}.ds-primary:hover:not(:disabled){background:var(--teal-dark)}.ds-primary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-primary:disabled{background:#e4ebed;color:#687d84;cursor:not-allowed}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "File selection and undo actions use a white inset-stroked control.",
+      "html": "<button class=\"ds-secondary\">Pilih file</button>",
+      "css": ".ds-secondary{font-family:'Segoe UI', system-ui, sans-serif;font-size:12px;font-weight:600;min-height:40px;border:0;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:10px 15px;white-space:nowrap;cursor:pointer;transition:background-color .16s ease-out,box-shadow .16s ease-out;background:white;color:var(--ink);box-shadow:inset 0 0 0 1px #cddadd}.ds-secondary:hover:not(:disabled){background:#edf4f4}.ds-secondary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-secondary:disabled{color:#6d7e85;background:#f4f7f8;box-shadow:inset 0 0 0 1px #dce5e8;cursor:not-allowed}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}"
+    },
+    {
+      "name": "Name Field",
+      "kind": "input",
+      "refersTo": "name-field",
+      "description": "An editable basename beside its protected extension; the wrapper owns focus.",
+      "html": "<div class=\"ds-field\"><input class=\"ds-name\" value=\"Catatan rapat\" aria-label=\"Nama baru untuk Catatan rapat.txt\" /><span class=\"ds-extension\" title=\"Ekstensi dilindungi\">.txt</span></div>",
+      "css": ".ds-field{display:flex;align-items:center;border:1px solid #748b94;border-radius:5px;background:white;overflow:hidden;max-width:320px}.ds-field:focus-within{border-color:var(--focus);box-shadow:0 0 0 2px #168c7b24}.ds-name{font-family:'Segoe UI', system-ui, sans-serif;font-size:12px;background:transparent;color:var(--ink);width:100%;min-width:0;padding:9px 10px;border:0;border-radius:5px;outline:none;caret-color:var(--teal)}.ds-name:focus-visible{outline:none}.ds-extension{font-family:'Segoe UI', system-ui, sans-serif;font-size:11px;color:#617981;padding:3px 9px 3px 0;max-width:90px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ds-field[aria-invalid=true]{border-color:#c26770}"
+    },
+    {
+      "name": "Current Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Current tool on the petrol navigation rail.",
+      "html": "<nav class=\"ds-rail\" aria-label=\"Navigasi aplikasi\"><a class=\"ds-current\" href=\"#main\" aria-current=\"page\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 256 256\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"16\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M32 200 88 56l56 144M52 152h72M160 120h40a24 24 0 0 1 24 24v56M224 160h-40a20 20 0 0 0 0 40h16a24 24 0 0 0 24-24\"/></svg>Batch Rename</a></nav>",
+      "css": ".ds-rail{background:#183f48;padding:18px;width:172px}.ds-current{font-family:'Segoe UI', system-ui, sans-serif;color:#f1fafa;background:#2e5961;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:7px;text-decoration:none;font-size:13px;font-weight:600}.ds-current svg{color:#ace1d7;flex-shrink:0}.ds-current:focus-visible{outline:2px solid var(--focus);outline-offset:3px}"
+    },
+    {
+      "name": "Workspace",
+      "kind": "card",
+      "refersTo": "workspace",
+      "description": "Flat white editing surface with a toolbar and quieter status strip.",
+      "html": "<section class=\"ds-workspace\" aria-label=\"Editor nama file\"><div class=\"ds-toolbar\"><h2 class=\"ds-title\">Daftar file</h2><span class=\"ds-count\">2</span></div><div class=\"ds-content\">Nama asli &nbsp;&nbsp; Nama baru</div><div class=\"ds-bottom\">File lain tidak akan ditimpa.</div></section>",
+      "css": ".ds-workspace{font-family:'Segoe UI', system-ui, sans-serif;color:var(--ink);background:white;border:1px solid var(--line);border-radius:10px;overflow:hidden}.ds-toolbar{display:flex;align-items:center;gap:9px;padding:16px 20px;border-bottom:1px solid var(--line);min-height:63px;box-sizing:border-box}.ds-title{margin:0;font-size:13px;font-weight:600}.ds-count{background:#eef3f5;color:#526a73;border-radius:5px;padding:2px 7px;font-size:11px;font-variant-numeric:tabular-nums}.ds-content{padding:15px 20px;font-size:12px}.ds-bottom{padding:13px 20px;background:#fcfdfd;border-top:1px solid var(--line);font-size:10px;color:#607880}"
+    },
+    {
+      "name": "Error Notice",
+      "kind": "custom",
+      "description": "Visible operation feedback uses a readable message alongside an inline icon.",
+      "html": "<div class=\"ds-notice\" role=\"alert\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v6\"/><circle cx=\"12\" cy=\"17\" r=\".75\" fill=\"currentColor\" stroke=\"none\"/></svg>Nama file perlu diperiksa sebelum Apply.</div>",
+      "css": ".ds-notice{font-family:'Segoe UI', system-ui, sans-serif;display:flex;align-items:flex-start;gap:10px;border-radius:6px;padding:12px 14px;font-size:12px;line-height:1.6;background:#fceced;color:#9c3540;overflow-wrap:anywhere}.ds-notice svg{flex-shrink:0;margin-top:1px}"
+    },
+    {
+      "name": "Text Action",
+      "kind": "button",
+      "description": "A secondary draft-management action without a filled surface.",
+      "html": "<button class=\"ds-text\">Reset draft</button>",
+      "css": ".ds-text{font-family:'Segoe UI', system-ui, sans-serif;border:0;background:transparent;color:#476972;font-size:11px;font-weight:600;padding:7px 0;display:inline-flex;align-items:center;gap:6px;cursor:pointer}.ds-text:hover:not(:disabled){color:var(--teal-dark);text-decoration:underline;text-underline-offset:3px}.ds-text:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-text:disabled{color:#75868c;cursor:not-allowed}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clear Workbench",
+    "overview": "The Clear Workbench turns a local file operation into a calm editing task. A cool white workspace sits beside a deep petrol rail; teal identifies deliberate actions and keyboard focus. Compact controls and aligned columns keep original and proposed filenames easy to compare.\n\nThe system uses native-feeling Windows typography, restrained rounding, and flat surfaces. Operational state stays readable through words and icons alongside colour. This record describes the implemented UI; project scope, decisions, and release status remain in D:\\vault\\desktop-local-tool-vault.",
+    "keyCharacteristics": [
+      "Cool white workspace with a petrol navigation rail.",
+      "Compact, aligned file rows and visibly bounded edit fields.",
+      "Teal actions and focus; words and icons explain state.",
+      "Indonesian copy and a Windows system UI font."
+    ],
+    "rules": [
+      {
+        "name": "The Readable State Rule",
+        "body": "Use colour together with a word and an icon for row state; the current UI distinguishes unchanged, changed, and invalid rows this way.",
+        "section": "colors"
+      },
+      {
+        "name": "The Quiet Depth Rule",
+        "body": "Keep the main workspace flat; reserve a cast shadow and backdrop for modal confirmation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep original and proposed names visible together.",
+      "Do use the established teal focus treatment on editable fields.",
+      "Do pair changed, invalid, and recovery states with readable text and an icon.",
+      "Do preserve the table's horizontal scrolling at narrow widths."
+    ],
+    "donts": [
+      "Don't use colour alone to communicate file state.",
+      "Don't turn the flat workspace into a stack of raised cards.",
+      "Don't hide original names when a new name is being edited."
+    ]
+  }
+}
+
