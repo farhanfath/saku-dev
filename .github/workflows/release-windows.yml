@@ -1,0 +1,85 @@
+name: Draft Windows release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing v-prefixed tag on the current main commit
+        required: true
+        type: string
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    if: github.event_name == 'push' || github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 22
+          cache: npm
+      - name: Require signing key
+        shell: pwsh
+        run: |
+          if (-not $env:TAURI_SIGNING_PRIVATE_KEY) {
+            throw 'Missing repository secret TAURI_SIGNING_PRIVATE_KEY; no release was created.'
+          }
+      - name: Require tag on current main commit
+        shell: pwsh
+        run: |
+          if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') {
+            if ($env:GITHUB_REF -ne 'refs/heads/main') { throw 'Dispatch this workflow from main.' }
+            $tagCommit = git rev-parse "$env:RELEASE_TAG^{commit}"
+            if ($LASTEXITCODE -ne 0 -or $tagCommit -ne $env:GITHUB_SHA) { throw 'The selected tag must point at the current main commit.' }
+          } else {
+            git fetch origin main --no-tags
+            if ($LASTEXITCODE -ne 0) { throw 'Could not fetch main to verify the release commit.' }
+            git merge-base --is-ancestor $env:GITHUB_SHA origin/main
+            if ($LASTEXITCODE -ne 0) { throw 'The tag commit is not on main.' }
+          }
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable --profile minimal --component rustfmt --component clippy
+      - name: Install JavaScript dependencies
+        run: npm ci
+      - name: Validate versions and release tag
+        run: node scripts/release-validation.mjs versions "$env:RELEASE_TAG"
+      - name: Build and upload signed draft release
+        uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ env.RELEASE_TAG }}
+          releaseName: Saku ${{ env.RELEASE_TAG }}
+          releaseBody: Review the Windows installer and updater metadata before publishing this draft.
+          releaseDraft: true
+          prerelease: false
+          updaterJsonPreferNsis: true
+      - name: Download draft metadata and signature
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $release = gh release view $env:RELEASE_TAG --json assets | ConvertFrom-Json
+          $assetsPath = Join-Path $env:RUNNER_TEMP 'release-assets.json'
+          $release.assets | ConvertTo-Json -Depth 5 | Set-Content -Encoding utf8 $assetsPath
+          gh release download $env:RELEASE_TAG --pattern latest.json --dir $env:RUNNER_TEMP
+          if ($LASTEXITCODE -ne 0) { throw 'Draft latest.json is missing.' }
+          $installer = $release.assets | Where-Object { $_.name -match '^Saku_.*_x64-setup\.exe$' } | Select-Object -First 1
+          if (-not $installer) { throw 'Draft NSIS installer is missing.' }
+          gh release download $env:RELEASE_TAG --pattern "$($installer.name).sig" --dir $env:RUNNER_TEMP
+          if ($LASTEXITCODE -ne 0) { throw 'Draft NSIS updater signature is missing.' }
+          node scripts/release-validation.mjs artifacts $env:RELEASE_TAG "$env:RUNNER_TEMP\latest.json" $assetsPath "$env:RUNNER_TEMP\$($installer.name).sig"
