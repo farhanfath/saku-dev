@@ -1,6 +1,6 @@
-import test from "node:test";
+﻿import test from "node:test";
 import assert from "node:assert/strict";
-import handler, { publicRelease } from "./release.js";
+import handler, { publicRelease } from "../api/release.js";
 
 const stable = {
   tag_name: "v0.3.0",
@@ -83,3 +83,4 @@ test("does not cache upstream failures and rejects writes", async () => {
   assert.equal(rejected.statusCode, 405);
   assert.equal(rejected.headers.Allow, "GET, HEAD");
 });
+
